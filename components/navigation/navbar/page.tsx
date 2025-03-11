@@ -7,7 +7,7 @@ import { Search } from 'lucide-react'
 
 const Navbar = () => {
   return (
-    <nav className="background-light900_dark200 fixed z-50 w-full p-6 shadow-light-300 dark:shadow-none sm:px-12">
+    <nav className="bg-gray-900 fixed z-50 w-full p-6 shadow-light-300 dark:shadow-none sm:px-12">
       <div className="flex items-center justify-between">
         <Link href="/" className="flex items-center gap-1">
           <Image
