@@ -30,6 +30,10 @@ module.exports = {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
       },
+      backgroundImage :{
+        "auth-dark" : "url('/images/auth-dark.png')",
+         "auth-light" : "url('/images/auth-light.png')"
+      }
     },
   },
   plugins: [("animate")],

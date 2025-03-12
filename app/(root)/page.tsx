@@ -1,11 +1,25 @@
-
-
-export default function Home() {
-  return (
-    <main className="min-h-screen p-4">
-      <div className="flex justify-between items-center mb-8">
-       
-      </div>
-    </main>
-  );
+import { auth } from "@/auth";
+import { Button } from "@/components/ui/button";
+import { signOut } from "next-auth/react";
+import ROUTES from "@/constants/routes";
+const Home = async () => {
+  const session = await auth();
+  console.log(session);
+  return(
+    <>
+    <h1 className = "h1-bold">Welcome to the world of Next.js</h1>
+    <form 
+    className = "px-10 pt-[100px]"
+    action={async()=>{
+      "use server";
+      await signOut({redirectTo: ROUTES.SIGN_IN})
+    }}
+    >
+      <Button type="submit">Log Out</Button>
+    </form>
+    </>
+  )
 }
+
+
+export default Home;
