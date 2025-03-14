@@ -1,13 +1,19 @@
+'use client'
 import React from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { ModeToggle } from '@/components/ui/mode-toggle'
 import { Input } from '@/components/ui/input'
 import { Search } from 'lucide-react'
+import { useSession, signOut } from 'next-auth/react'
+import { Button } from '@/components/ui/button'
 
 const Navbar = () => {
+  const { data: session } = useSession();
+
   return (
-    <nav className="bg-gray-900 fixed z-50 w-full p-6 shadow-light-300 dark:shadow-none sm:px-12">
+    <nav className="bg-gray-700
+     fixed z-50 w-full p-6 shadow-light-300 dark:shadow-none sm:px-12">
       <div className="flex items-center justify-between">
         <Link href="/" className="flex items-center gap-1">
           <Image
@@ -32,8 +38,17 @@ const Navbar = () => {
           </div>
         </div>
 
-        <div className="flex items-center">
+        <div className="flex items-center gap-4">
           <ModeToggle />
+          {session && (
+            <Button
+              variant="ghost"
+              onClick={() => signOut({ callbackUrl: '/sign-in' })}
+              className="text-dark100_light900"
+            >
+              Sign Out
+            </Button>
+          )}
         </div>
       </div>
     </nav>
