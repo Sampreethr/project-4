@@ -1,6 +1,8 @@
+'use client'
+
 import React, { ReactNode } from 'react'
 import { usePathname } from 'next/navigation'
-import Navbar from '@/components/navigation/navbar'
+import Navbar from '@/components/navigation/navbar/page';
 
 const RootLayout = ({children}:{children:ReactNode}) => {
   const pathname = usePathname();
