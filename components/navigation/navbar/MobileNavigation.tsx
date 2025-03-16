@@ -4,13 +4,20 @@ import React from 'react'
 import Link from 'next/link'
 import {
     Sheet,
+    SheetClose,
     SheetContent,
+    
+    
+    
+    SheetTitle,
     
     
     
     SheetTrigger,
 } from "@/components/ui/sheet"
 import Image from 'next/image';
+import { Button } from '@/components/ui/button';
+import NavLinks from './NavLinks';
 
 const MobileNavigation = () => {
   return (
@@ -25,6 +32,7 @@ const MobileNavigation = () => {
         />
       </SheetTrigger>
       <SheetContent side="left" className="background-light900_dark200 border-none">
+        <SheetTitle className ="hidden">Navigation</SheetTitle>
         <div className="flex flex-col gap-6">
           <Link href="/" className="flex items-center gap-1">
             <Image
@@ -37,25 +45,31 @@ const MobileNavigation = () => {
               Dev<span className="text-primary-500">Flow</span>
             </p>
           </Link>
+            <div className = "no-scrollbar flex h-[calc(100vh-80px)] flex-col justify-between overflow-y-auto">
+            <SheetClose asChild>
+                <section className="flex h-full flex-col gap-6 pt-16">
+                    <NavLinks isMobileNav/>
+                </section>
+            </SheetClose>
+            </div>
+            <div className = "flex flex-col gap-3">
+                <SheetClose asChild>
+                    <Link href="{ROUTES.SIGN_IN}">
+                    <Button className = "small-medium btn-secondary min-h-[41px] w-full rounded-lg px-4 py-3 shadow-none">
+                        <span className = "primary-text-gradient">Log In</span>
+                    </Button>
+                    </Link>
+                </SheetClose>
+                <SheetClose asChild>
+                    <Link href="{ROUTES.SIGN_UP}">
+                    <Button className = "small-medium light-border-2 btn-tertiary text-dark400_light900 min-h-[41px] w-full rounded-lg border px-4 py-3 shadow-none">
 
-          <nav className="flex flex-col gap-4">
-            <Link href="/" className="flex items-center gap-2 text-dark100_light900 hover:text-primary-500">
-              <Image src="/icons/home.svg" width={20} height={20} alt="Home" className="invert-colors" />
-              <span>Home</span>
-            </Link>
-            <Link href="/questions" className="flex items-center gap-2 text-dark100_light900 hover:text-primary-500">
-              <Image src="/icons/questions.svg" width={20} height={20} alt="Questions" className="invert-colors" />
-              <span>Questions</span>
-            </Link>
-            <Link href="/tags" className="flex items-center gap-2 text-dark100_light900 hover:text-primary-500">
-              <Image src="/icons/tag.svg" width={20} height={20} alt="Tags" className="invert-colors" />
-              <span>Tags</span>
-            </Link>
-            <Link href="/profile" className="flex items-center gap-2 text-dark100_light900 hover:text-primary-500">
-              <Image src="/icons/user.svg" width={20} height={20} alt="Profile" className="invert-colors" />
-              <span>Profile</span>
-            </Link>
-          </nav>
+                        Sign Up
+                    </Button>
+                    </Link>
+                </SheetClose>
+
+            </div>
         </div>
       </SheetContent>
     </Sheet>
