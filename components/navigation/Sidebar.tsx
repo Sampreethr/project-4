@@ -7,8 +7,8 @@ import { usePathname } from "next/navigation";
 import { useSession } from "next-auth/react";
 import {
   Home,
-  MessageSquare,
   Users,
+  MessageSquare,
   HelpCircle,
   LogOut,
   User,
@@ -55,15 +55,12 @@ const Sidebar = ({ handleSignOut }: SidebarProps) => {
     <aside className="hidden lg:flex flex-col w-[240px] h-screen bg-card border-r border-border fixed left-0 top-0 py-6 px-3">
       {/* Logo */}
       <Link href="/" className="flex items-center gap-2 px-3 mb-8">
-        <div className="relative w-8 h-8 flex-shrink-0">
-          <Image
-            src="/images/logo.svg"
-            alt="DevFlow Logo"
-            fill
-            priority
-            className="object-contain"
-          />
-        </div>
+        <Image
+          src="/images/logo.svg"
+          width={28}
+          height={28}
+          alt="DevFlow Logo"
+        />
         <p className="font-bold text-xl text-foreground font-space-grotesk">
           Dev<span className="text-primary">Flow</span>
         </p>

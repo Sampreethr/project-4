@@ -6,16 +6,17 @@ import {
   Sheet,
   SheetClose,
   SheetContent,
-  SheetTitle,
   SheetTrigger,
+  SheetTitle,
 } from "@/components/ui/sheet";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import NavLinks from "./NavLinks";
 import ROUTES from "@/constants/routes";
 import { User } from "next-auth";
-import { Menu } from "lucide-react";
+import { LogOut, Menu, User as UserIcon } from "lucide-react";
 import { ThemeToggle } from "@/components/layout/ThemeToggle";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 interface MobileNavigationProps {
   isAuthenticated: boolean;
@@ -36,103 +37,110 @@ const MobileNavigation = ({
           size="icon"
           className="rounded-full w-10 h-10 flex items-center justify-center"
         >
-          <Menu className="h-5 w-5 text-dark400_light900" />
+          <Menu className="h-5 w-5 text-foreground" />
         </Button>
       </SheetTrigger>
       <SheetContent
         side="left"
-        className="background-light900_dark200 border-r border-light-700 dark:border-dark-400 pt-10"
+        className="bg-background border-r border-border p-0 w-[280px]"
       >
-        <SheetTitle className="sr-only">Navigation</SheetTitle>
+        <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
         <div className="flex flex-col h-full">
-          <div className="flex items-center justify-between gap-2 mb-8">
+          {/* Header with Logo and Theme Toggle */}
+          <div className="flex items-center justify-between p-4 border-b border-border">
             <Link href="/" className="flex items-center gap-2">
-              <div className="relative w-7 h-7 flex-shrink-0">
-                <Image
-                  src="/images/logo.svg"
-                  alt="DevFlow Logo"
-                  fill
-                  priority
-                  className="object-contain"
-                />
-              </div>
-              <p className="h2-bold font-space-grotesk text-foreground">
+              <Image
+                src="/images/logo.svg"
+                width={28}
+                height={28}
+                alt="DevFlow Logo"
+              />
+              <p className="font-bold text-xl text-foreground font-space-grotesk">
                 Dev<span className="text-primary">Flow</span>
               </p>
             </Link>
             <ThemeToggle />
           </div>
 
+          {/* User Profile Section - Only if authenticated */}
           {isAuthenticated && (
-            <div className="flex items-center gap-3 mb-8 p-4 background-light800_dark300 rounded-xl">
-              <div className="w-12 h-12 rounded-full overflow-hidden bg-primary-500 flex items-center justify-center text-white text-xl">
-                {user?.image ? (
-                  <Image
-                    src={user.image}
-                    alt={user.name || "User"}
-                    width={48}
-                    height={48}
-                    className="object-cover"
-                  />
-                ) : (
-                  <span>{user?.name?.charAt(0).toUpperCase() || "U"}</span>
-                )}
-              </div>
-              <div>
-                <p className="paragraph-semibold text-dark400_light900">
-                  {user?.name || "User"}
-                </p>
-                <p className="small-regular text-dark400_light900 truncate max-w-[180px]">
-                  {user?.email || ""}
-                </p>
+            <div className="p-4 border-b border-border">
+              <div className="flex items-center gap-3">
+                <Avatar className="h-12 w-12 border border-border">
+                  <AvatarImage src={user?.image || ""} />
+                  <AvatarFallback className="bg-primary text-primary-foreground">
+                    {user?.name?.charAt(0).toUpperCase() || "U"}
+                  </AvatarFallback>
+                </Avatar>
+                <div className="overflow-hidden">
+                  <p className="text-sm font-medium text-foreground truncate">
+                    {user?.name || "User"}
+                  </p>
+                  <p className="text-xs text-muted-foreground truncate max-w-[180px]">
+                    {user?.email || ""}
+                  </p>
+                </div>
               </div>
             </div>
           )}
 
-          <div className="flex-grow overflow-y-auto">
+          {/* Navigation Links */}
+          <div className="flex-1 overflow-y-auto p-4">
             <SheetClose asChild>
-              <section className="flex flex-col gap-6 mb-8">
+              <section className="mb-6">
                 <NavLinks isMobileNav />
               </section>
             </SheetClose>
           </div>
 
-          <div className="mt-auto border-t border-light-700 dark:border-dark-400 pt-4 space-y-3">
+          {/* Footer Actions */}
+          <div className="mt-auto border-t border-border p-4">
             {isAuthenticated ? (
-              <>
+              <div className="space-y-2">
                 <SheetClose asChild>
-                  <Link href="/profile">
-                    <Button className="justify-start w-full text-left bg-transparent hover:bg-light-800 dark:hover:bg-dark-300 text-dark400_light900">
-                      <span>Profile</span>
+                  <Link href="/profile" className="block w-full">
+                    <Button
+                      variant="outline"
+                      className="w-full justify-start"
+                      size="sm"
+                    >
+                      <UserIcon className="mr-2 h-4 w-4" />
+                      Profile
                     </Button>
                   </Link>
                 </SheetClose>
                 <SheetClose asChild>
                   <Button
                     onClick={handleSignOut}
-                    className="justify-start w-full text-left bg-transparent hover:bg-rose-50 dark:hover:bg-rose-900/20 text-rose-500"
+                    variant="outline"
+                    className="w-full justify-start text-destructive hover:bg-destructive/10 border-destructive/20"
+                    size="sm"
                   >
+                    <LogOut className="mr-2 h-4 w-4" />
                     Log Out
                   </Button>
                 </SheetClose>
-              </>
+              </div>
             ) : (
-              <>
+              <div className="space-y-2">
                 <SheetClose asChild>
                   <Link href={ROUTES.SIGN_IN} className="block w-full">
-                    <Button className="w-full primary-gradient text-light-900">
+                    <Button variant="outline" className="w-full" size="sm">
                       Log In
                     </Button>
                   </Link>
                 </SheetClose>
                 <SheetClose asChild>
                   <Link href={ROUTES.SIGN_UP} className="block w-full">
-                    <Button className="w-full bg-transparent border border-light-700 dark:border-dark-400 text-dark400_light900 hover:bg-light-800 dark:hover:bg-dark-300">
+                    <Button
+                      className="w-full bg-primary text-primary-foreground"
+                      size="sm"
+                    >
                       Sign Up
                     </Button>
                   </Link>
                 </SheetClose>
-              </>
+              </div>
             )}
           </div>
         </div>

@@ -1,15 +1,12 @@
 "use client";
 
 import React, { ReactNode } from "react";
-import { useRouter } from "next/navigation";
 import { signOut } from "next-auth/react";
 import Navbar from "@/components/navigation/navbar/page";
 import Sidebar from "@/components/navigation/Sidebar";
 import ROUTES from "@/constants/routes";
 
 const RootLayout = ({ children }: { children: ReactNode }) => {
-  const router = useRouter();
-
   const handleSignOut = () => {
     signOut({ callbackUrl: ROUTES.SIGN_IN });
   };

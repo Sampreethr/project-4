@@ -30,17 +30,15 @@ const Navbar = () => {
   return (
     <nav className="bg-background fixed z-50 w-full p-4 shadow-sm border-b border-border sm:px-10">
       <div className="flex items-center justify-between max-w-7xl mx-auto">
-        {/* Logo - Only shown on mobile and medium screens, hidden on large screens (where sidebar shows it) */}
-        <Link href="/" className="flex items-center gap-1 lg:invisible">
-          <div className="relative w-7 h-7 flex-shrink-0">
-            <Image
-              src="/images/logo.svg"
-              alt="DevFlow Logo"
-              fill
-              priority
-              className="object-contain"
-            />
-          </div>
+        {/* Logo - Show on all screen sizes */}
+        <Link href="/" className="flex items-center gap-1">
+          <Image
+            src="/images/logo.svg"
+            width={28}
+            height={28}
+            alt="DevFlow Logo"
+            className="min-w-7 min-h-7"
+          />
           <p className="h2-bold font-space-grotesk text-foreground max-sm:hidden">
             Dev<span className="text-primary">Flow</span>
           </p>

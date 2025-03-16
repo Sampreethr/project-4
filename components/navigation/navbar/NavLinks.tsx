@@ -3,7 +3,7 @@
 import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Home, Search, Users, MessageSquare, HelpCircle } from "lucide-react";
+import { Home, Users, MessageSquare, HelpCircle } from "lucide-react";
 
 interface NavLinkProps {
   isMobileNav?: boolean;
@@ -44,7 +44,7 @@ const NavLinks = ({ isMobileNav = false }: NavLinkProps) => {
   return (
     <div
       className={`flex ${
-        isMobileNav ? "flex-col w-full gap-5" : "max-md:hidden gap-4"
+        isMobileNav ? "flex-col w-full space-y-1" : "max-md:hidden gap-4"
       }`}
     >
       {navLinks.map((link) => {
@@ -54,20 +54,18 @@ const NavLinks = ({ isMobileNav = false }: NavLinkProps) => {
           <Link
             key={link.route}
             href={link.route}
-            className={`flex items-center gap-3 ${
+            className={`flex items-center gap-3 rounded-lg transition-colors ${
               isMobileNav ? "p-3" : "p-2"
             } ${
               isActive
-                ? "primary-gradient rounded-lg text-light-900 font-medium"
-                : "background-light800_dark400 text-dark300_light700 hover:text-primary-500 rounded-lg"
+                ? "bg-primary text-primary-foreground font-medium"
+                : "text-foreground hover:bg-muted"
             }`}
           >
-            <div className={`${isActive && !isMobileNav && "text-light-900"}`}>
-              {link.icon}
-            </div>
+            <div>{link.icon}</div>
             <span
               className={`${
-                isMobileNav ? "text-base font-medium" : "hidden lg:block"
+                isMobileNav ? "text-sm font-medium" : "hidden lg:block text-sm"
               }`}
             >
               {link.label}
