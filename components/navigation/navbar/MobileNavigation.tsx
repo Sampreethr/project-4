@@ -1,5 +1,6 @@
 "use client";
 
+// Enhanced mobile navigation with improved accessibility and styling
 import React from "react";
 import Link from "next/link";
 import {
